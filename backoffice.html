@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
+    />
+    <title>Strive Products | Backoffice</title>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
+      <a class="navbar-brand" href="./index.html">Strive Products</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="./index.html">Home </a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="./backoffice.html"
+              >Backoffice <span class="sr-only">(current)</span></a
+            >
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container">
+      <h1 class="text-center">CRUDAZON</h1>
+      <h1 class="text-center">(backoffice)</h1>
+      <h2 class="text-center mt-5">Add a new product</h2>
+      <div class="row mb-5">
+        <div class="col-md-6 offset-md-3">
+          <form onsubmit="handleSubmit(event)">
+            <div class="form-group">
+              <label for="name">Product name</label>
+              <input
+                type="text"
+                class="form-control"
+                id="name"
+                required
+                placeholder="Write here the product name"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="description">Product description</label>
+              <textarea
+                class="form-control"
+                id="description"
+                rows="3"
+                required
+                placeholder="Write here the product description"
+              ></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="brand">Product brand</label>
+              <input
+                type="text"
+                class="form-control"
+                id="brand"
+                required
+                placeholder="Write here the brand of the product e.g Nokia"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="time">Product image URL</label>
+              <div class="custom-file">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="imageUrl"
+                  required
+                  placeholder="Write here the product image Url"
+                />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="price">Product price</label>
+              <input
+                type="text"
+                class="form-control"
+                id="price"
+                required
+                placeholder="Write here the product price"
+              />
+            </div>
+
+            <div class="form-group">
+              <button
+                class="btn btn-primary"
+                type="submit"
+                value="Submit event"
+              >
+                <span
+                  class="spinner-border spinner-border-sm d-none"
+                  role="status"
+                  aria-hidden="true"
+                  id="loadingSpinner"
+                ></span>
+                Add Product
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const url = "https://striveschool-api.herokuapp.com/api/product/";
+      const headers = {
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDE0N2RkZmY4MWI0MjAwMTM5YjJjMmEiLCJpYXQiOjE2NzkwNjQ3ODgsImV4cCI6MTY4MDI3NDM4OH0.CPrXtCQ0ixdGKs4yPeL83Ayb9gPUCOLWzEnGs-Zv2JE ",
+      };
+
+      window.onload = async () => {
+        let urlParams = new URLSearchParams(window.location.search);
+        id = urlParams.get("id");
+        if (id) {
+          let title = document.querySelector(".container > h2");
+          title.innerText = "Edit Product Item";
+          let button = document.querySelector(".form-group > button");
+          button.innerHTML = `<span
+                  class="spinner-border spinner-border-sm d-none"
+                  role="status"
+                  aria-hidden="true"
+                  id="loadingSpinner"
+                ></span> Update Product`;
+
+          let response = await fetch(url + id, {
+            headers,
+          }); // contacting the endpoint for a single product item
+          let product = await response.json(); // transforming the response body in an usable object, asyncronous operation!
+
+          document.getElementById("name").value = product.name;
+          document.getElementById("description").value = product.description;
+          document.getElementById("brand").value = product.brand;
+          document.getElementById("imageUrl").value = product.description;
+          document.getElementById("price").value = product.price;
+        }
+      };
+
+      const handleSubmit = (e) => {
+        e.preventDefault(); // preventing the default browser event handling
+        addProduct();
+      };
+
+      const addProduct = async () => {
+        let spinner = document.querySelector("#loadingSpinner");
+        spinner.classList.toggle("d-none"); // showing the spinner
+
+        let myProduct = {
+          name: document.querySelector("#name").value,
+          description: document.querySelector("#description").value,
+          brand: document.querySelector("#brand").value,
+          imageUrl: document.querySelector("#imageUrl").value,
+          price: document.querySelector("#price").value,
+        };
+
+        try {
+          let response;
+
+          if (id) {
+            //
+            response = await fetch(url + id, {
+              method: "PUT",
+              body: JSON.stringify(myProduct),
+              headers: new Headers({
+                "Content-Type": "application/json",
+                Authorization:
+                  "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDE0N2RkZmY4MWI0MjAwMTM5YjJjMmEiLCJpYXQiOjE2NzkwNjQ3ODgsImV4cCI6MTY4MDI3NDM4OH0.CPrXtCQ0ixdGKs4yPeL83Ayb9gPUCOLWzEnGs-Zv2JE",
+              }),
+            });
+          } else {
+            response = await fetch(url, {
+              method: "POST",
+              body: JSON.stringify(myProduct),
+              headers: new Headers({
+                "Content-Type": "application/json",
+                Authorization:
+                  "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDE0N2RkZmY4MWI0MjAwMTM5YjJjMmEiLCJpYXQiOjE2NzkwNjQ3ODgsImV4cCI6MTY4MDI3NDM4OH0.CPrXtCQ0ixdGKs4yPeL83Ayb9gPUCOLWzEnGs-Zv2JE",
+              }),
+            });
+          }
+
+          /* (response.ok) {
+            // checking the ok property which stores the successful result of the operation
+            spinner.classList.toggle("d-none"); // hiding the spinner
+            alert(`Product item ${id ? "updated" : "added"} successfully`);
+            location.assign("index.html");
+          } else {
+            spinner.classList.toggle("d-none"); // hiding the spinner
+            alert("An error occurred!");
+          }*/
+        } catch (error) {
+          console.log(error);
+        }
+      };
+    </script>
+  </body>
+</html>
