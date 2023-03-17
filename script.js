@@ -8,8 +8,8 @@ window.onload = async () => {
   let currentProducts = document.querySelector("#currentProducts");
 
   try {
-    let response = await fetch(url, { headers }); // this is getting the response from the API for a fetch request
-    let products = await response.json(); // this is transforming the response in a json, asyncronous operation!
+    let response = await fetch(url, { headers });
+    let products = await response.json();
     console.log(products);
     if (products.length > 0) {
       products.forEach((product) => {
@@ -46,4 +46,29 @@ window.onload = async () => {
     console.log(error);
   }
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 console.log(`current url: ${window.location.href}`);

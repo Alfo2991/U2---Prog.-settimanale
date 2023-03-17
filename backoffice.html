@@ -17,12 +17,12 @@
     />
 
     />
-    <title>Strive Products | Backoffice</title>
+    <title>CRUDAZON Products | Backoffice</title>
   </head>
 
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
-      <a class="navbar-brand" href="./index.html">Strive Products</a>
+      <a class="navbar-brand" href="./index.html">CRUDAZON Products</a>
       <button
         class="navbar-toggler"
         type="button"
@@ -173,7 +173,7 @@
 
       const addProduct = async () => {
         let spinner = document.querySelector("#loadingSpinner");
-        spinner.classList.toggle("d-none"); // showing the spinner
+        spinner.classList.remove("d-none"); // showing the spinner
 
         let myProduct = {
           name: document.querySelector("#name").value,
@@ -208,19 +208,12 @@
               }),
             });
           }
-
-          /* (response.ok) {
-            // checking the ok property which stores the successful result of the operation
-            spinner.classList.toggle("d-none"); // hiding the spinner
-            alert(`Product item ${id ? "updated" : "added"} successfully`);
-            location.assign("index.html");
-          } else {
-            spinner.classList.toggle("d-none"); // hiding the spinner
-            alert("An error occurred!");
-          }*/
-        } catch (error) {
+ 
+         
+        } catch (error)  {
           console.log(error);
-        }
+        } 
+        finally {spinner.classList.add("d-none");}
       };
     </script>
   </body>
