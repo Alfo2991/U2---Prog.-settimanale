@@ -34,7 +34,12 @@ window.onload = async () => {
                     <p>
                      <a class="btn btn-dark w-100 py-2" href="detail.html?id=${
                        product._id
-                     }">View Details</a>
+                     }">View Details</a> 
+                    </p>
+                    <p>
+                     <button onclick='modify()' class="btn btn-dark w-100 py-2" href="modify.html?id=${
+                       product._id
+                     }">Modify</button>
                     </p>
                   </div>`;
         currentProducts.appendChild(productItem);
@@ -47,28 +52,37 @@ window.onload = async () => {
   }
 };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 console.log(`current url: ${window.location.href}`);
+
+
+
+const modify = async () => {
+ 
+  let myProduct = {
+    name: document.querySelector("#name").value,
+    description: document.querySelector("#description").value,
+    brand: document.querySelector("#brand").value,
+    imageUrl: document.querySelector("#imageUrl").value,
+    price: document.querySelector("#price").value,
+  };
+
+  try {
+    let response;
+
+    if (id) {
+      response = await fetch(url + id, {
+        method: "PUT",
+        body: JSON.stringify(myProduct),
+        headers: new Headers({
+          "Content-Type": "application/json",
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDE0N2RkZmY4MWI0MjAwMTM5YjJjMmEiLCJpYXQiOjE2NzkwNjQ3ODgsImV4cCI6MTY4MDI3NDM4OH0.CPrXtCQ0ixdGKs4yPeL83Ayb9gPUCOLWzEnGs-Zv2JE",
+        }),
+      });
+    }
+  } catch (error) {
+    console.log(error);
+  } finally {
+    spinner.classList.add("d-none");
+  }
+};

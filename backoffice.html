@@ -156,7 +156,7 @@
           let response = await fetch(url + id, {
             headers,
           }); // contacting the endpoint for a single product item
-          let product = await response.json(); // transforming the response body in an usable object, asyncronous operation!
+          let product = await response.json();
 
           document.getElementById("name").value = product.name;
           document.getElementById("description").value = product.description;
@@ -187,7 +187,6 @@
           let response;
 
           if (id) {
-            //
             response = await fetch(url + id, {
               method: "PUT",
               body: JSON.stringify(myProduct),
@@ -208,12 +207,11 @@
               }),
             });
           }
- 
-         
-        } catch (error)  {
+        } catch (error) {
           console.log(error);
-        } 
-        finally {spinner.classList.add("d-none");}
+        } finally {
+          spinner.classList.add("d-none");
+        }
       };
     </script>
   </body>
