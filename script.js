@@ -17,7 +17,7 @@ window.onload = async () => {
 
         let productItem = document.createElement("div");
         productItem.classList.add("col", "mb-4");
-        productItem.innerHTML = `<div class="card p-3">
+        productItem.innerHTML = `<div class="card p-3 bg-success">
                     <div class="box" ><img
                       src=${product.imageUrl}
                       alt=${product.name}

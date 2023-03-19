@@ -76,21 +76,20 @@ async function modify() {
         const id = searchParams.get("id");
       
         try {
-          const response = await fetch(url + id, {
-            method: "DELETE",
-            headers: headers,
-          });
+          const confirmed = window.confirm("Are you sure you want to delete this product?");
+          if (confirmed) {
+            const response = await fetch(url + id, {
+              method: "DELETE",
+              headers: headers,
+            });
       
-          if (!response.ok) {
-            throw new Error("Network response was not ok");
+            if (!response.ok) {
+              throw new Error("Network response was not ok");
+            }
+      
+            console.log("Product deleted successfully");
           }
-      
-          console.log("Product deleted successfully");
         } catch (error) {
           console.log(error);
         }
-        function deleteProduct() {
-            window.location.assign(`index.html`);
-          }
       }
-   
