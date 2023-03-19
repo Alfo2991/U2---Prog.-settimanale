@@ -15,9 +15,12 @@
     
 </head>
 <body>
+  <style>
+    body{background-color: beige;}
+</style>
     
-    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
-        <a class="navbar-brand" href="./index.html">CRUDAZON</a>
+<nav class="navbar navbar-expand-lg navbar-light bg-success mb-4">
+  <a class="navbar-brand" href="./index.html">CRUDAZON</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -43,19 +46,14 @@
         </div>
       </nav>
       <div class="container text-center">
-        <h1>SHOPPING</h1>
-        <h2 class="my-5">Products In Stock</h2>
-        <div class="col-md-12 mb-5">
-          <div
-            class="row row-cols-1 row-cols-md-2 row-cols-lg-3"
-            id="currentProducts"
-          ></div>
-        </div>
-      </div>
+        <h1>Modify &/o delete</h1>
+        <div class="row mb-5 ">
+          <div class="col-md-6 offset-md-3">
     <form onsubmit="handleSubmit(event)">
         <div class="form-group">
           <label for="name">Product name</label>
           <input
+          id="productname"
             type="text"
             class="form-control"
             id="name"
@@ -67,8 +65,9 @@
         <div class="form-group">
           <label for="description">Product description</label>
           <textarea
+
             class="form-control"
-            id="description"
+            id="productdescription"
             rows="3"
             required
             placeholder="Write here the product description"
@@ -78,6 +77,7 @@
         <div class="form-group">
           <label for="brand">Product brand</label>
           <input
+          id="productbrand"
             type="text"
             class="form-control"
             id="brand"
@@ -90,6 +90,7 @@
           <label for="time">Product image URL</label>
           <div class="custom-file">
             <input
+            id="productimg"
               type="text"
               class="form-control"
               id="imageUrl"
@@ -102,6 +103,7 @@
         <div class="form-group">
           <label for="price">Product price</label>
           <input
+          id="productprice"
             type="text"
             class="form-control"
             id="price"
@@ -112,6 +114,7 @@
 
         <div class="form-group">
           <button
+          onclick="modify()"
             class="btn btn-primary"
             type="submit"
             value="Submit event"
@@ -125,6 +128,7 @@
             Update Product
           </button>
           <button
+          onclick="deleteProduct()"
           class="btn btn-danger"
           type="submit"
           value="Submit event"
@@ -137,6 +141,7 @@
           Delete
         </button>
         </div>
+        </form>
       </form>
       <style>
         .price {
@@ -173,5 +178,6 @@
           object-fit: contain;
         }
       </style>
+      <script src="scriptdtl.js"></script>
 </body>
 </html>

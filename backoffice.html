@@ -15,14 +15,15 @@
       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
       crossorigin="anonymous"
     />
-
-    />
     <title>CRUDAZON Products | Backoffice</title>
   </head>
 
   <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
-      <a class="navbar-brand" href="./index.html">CRUDAZON Products</a>
+    <style>
+        body{background-color: beige;}
+    </style>
+    <nav class="navbar navbar-expand-lg navbar-light bg-success mb-4">
+      <a class="navbar-brand" href="./index.html">CRUDAZON </a> Products</a>
       <button
         class="navbar-toggler"
         type="button"
@@ -48,11 +49,11 @@
       </div>
     </nav>
 
-    <div class="container">
+    <div class="container ">
       <h1 class="text-center">CRUDAZON</h1>
       <h1 class="text-center">(backoffice)</h1>
       <h2 class="text-center mt-5">Add a new product</h2>
-      <div class="row mb-5">
+      <div class="row mb-5 ">
         <div class="col-md-6 offset-md-3">
           <form onsubmit="handleSubmit(event)">
             <div class="form-group">
@@ -111,8 +112,10 @@
                 placeholder="Write here the product price"
               />
             </div>
+            
 
             <div class="form-group">
+              <button class="btn btn-danger mr-2" id="resetBtn" type="reset">Reset</button>
               <button
                 class="btn btn-primary"
                 type="submit"
@@ -213,6 +216,15 @@
           spinner.classList.add("d-none");
         }
       };
+
+      const resetBtn = document.querySelector('#resetBtn');
+  resetBtn.addEventListener('click', (event) => {
+    event.preventDefault();
+    const confirmReset = confirm('Are you sure you want to reset the form?');
+    if (confirmReset) {
+      event.target.form.reset();
+    }
+  });
     </script>
   </body>
 </html>

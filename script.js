@@ -5,7 +5,7 @@ window.onload = async () => {
       "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDE0N2RkZmY4MWI0MjAwMTM5YjJjMmEiLCJpYXQiOjE2NzkwNjQ3ODgsImV4cCI6MTY4MDI3NDM4OH0.CPrXtCQ0ixdGKs4yPeL83Ayb9gPUCOLWzEnGs-Zv2JE ",
   };
 
-  let currentProducts = document.querySelector("#currentProducts");
+  let currentProducts = document.querySelector(".currentProducts");
 
   try {
     let response = await fetch(url, { headers });
@@ -34,13 +34,9 @@ window.onload = async () => {
                     <p>
                      <a class="btn btn-dark w-100 py-2" href="detail.html?id=${
                        product._id
-                     }">View Details</a> 
+                     }">View More</a> 
                     </p>
-                    <p>
-                     <button onclick='modify()' class="btn btn-dark w-100 py-2" href="modify.html?id=${
-                       product._id
-                     }">Modify</button>
-                    </p>
+                  
                   </div>`;
         currentProducts.appendChild(productItem);
       });
@@ -54,16 +50,13 @@ window.onload = async () => {
 
 console.log(`current url: ${window.location.href}`);
 
-
-
-const modify = async () => {
- 
+async function modify(id) {
   let myProduct = {
-    name: document.querySelector("#name").value,
-    description: document.querySelector("#description").value,
-    brand: document.querySelector("#brand").value,
-    imageUrl: document.querySelector("#imageUrl").value,
-    price: document.querySelector("#price").value,
+    name: document.querySelector("#productname").value,
+    description: document.querySelector("#productdescription").value,
+    brand: document.querySelector("#productbrand").value,
+    imageUrl: document.querySelector("#productimageUrl").value,
+    price: document.querySelector("#productprice").value,
   };
 
   try {
@@ -85,4 +78,4 @@ const modify = async () => {
   } finally {
     spinner.classList.add("d-none");
   }
-};
+}
